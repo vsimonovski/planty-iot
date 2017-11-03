@@ -1,0 +1,26 @@
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $blue;
+
+    &__logo {
+        width: 250px;
+        height: 250px;
+        transform: rotate(7deg);
+        animation-name: spin;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+}
