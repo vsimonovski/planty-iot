@@ -3,6 +3,10 @@ let board, led;
 
 module.exports = app => {
 
+app.get('/appdirect', (req,res) => {
+    res.status(200).end(); 
+});
+
 app.get('/start', (req, res) => {
     if (!led) {
         console.log('OVDE');
