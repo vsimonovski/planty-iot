@@ -1,16 +1,13 @@
 const mongoose = require('mongoose');
 
-archievementsSchema = mongoose.Schema({
-    achs:[String]
-});
-
 const userSchema = mongoose.Schema({
     fullname:String,
+    imgUrl:String,
     plants:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Plant'
     }],
-    achievements:archievementsSchema
+    achievements:[String]
 });
 
 module.exports = mongoose.model('User', userSchema);
