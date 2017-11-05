@@ -282,17 +282,17 @@ function getJSON(callback, calling, intent) {
             );
         });
         test.then(function(res) {
-            let moisture = res[0].stats.moisture;
-            let temp = res[0].stats.temperature;
-            let sun = res[0].stats.sun;
-            let name = res[0].name;
-            let specy = res[0].specy;
-            let output = 'Your ' + specy + ' plant, ' + name + ' ';
-            if (moisure > 550) {
+            var moisture = res.stats.moisture;
+            var temp = res.stats.temperature;
+            var sun = res.stats.sun;
+            var name = res.name;
+            var specy = res.specy;
+            var output = 'Your ' + specy + ' plant, ' + name + ' ';
+            if (moisture > 550) {
                 output += 'is as dry as a bone. She needs a lot of water!';
-            } else if (moisure > 350) {
+            } else if (moisture > 380) {
                 output += 'is thirsty. Please give her some water!';
-            } else if (moisure > 250) {
+            } else if (moisture > 250) {
                 output += 'has enough water. Great job!';
             } else {
                 output +=

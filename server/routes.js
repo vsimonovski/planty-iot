@@ -128,17 +128,21 @@ module.exports = app => {
                         m = value;
                         this.disable();
 
-                        let plants = await Plant.findOne({ user: req.params.id });
-                        console.log(plants);
+                        let plant = await Plant.findOne({
+                            user: req.params.id
+                        });
+                        console.log(plant);
 
-                        plants[0].stats.moisture = m;
-                        plants[0].stats.sun = s;
-                        plants[0].stats.temperature = t;
+                        plant.stats.moisture = m;
+                        plant.stats.sun = s;
+                        plant.stats.temperature = t;
 
-                        await plants.save();
+                        await plant.save();
+
+                        res.json(plant, 200);
 
                         board.io.reset();
-                        res.status(200).send('OK!');
+                        // res.status(200).send('OK!');
                     });
                     this.disable();
                 });
@@ -181,17 +185,19 @@ module.exports = app => {
                         m = value;
                         this.disable();
 
-                        let plants = await Plant.find({ user: req.params.id });
-                        console.log(plants);
+                        let plant = await Plant.findOne({
+                            user: req.params.id
+                        });
+                        console.log(plant);
 
-                        plants[0].stats.moisture = m;
-                        plants[0].stats.sun = s;
-                        plants[0].stats.temperature = t;
-                        await plants.save();
-
+                        plant.stats.moisture = m;
+                        plant.stats.sun = s;
+                        plant.stats.temperature = t;
+                        await plant.save();
+                        res.json(plant, 200);
                         board.io.reset();
 
-                        res.status(200).send('OK!');
+                        // res.status(200).send('OK!');
                     });
                     this.disable();
                 });
