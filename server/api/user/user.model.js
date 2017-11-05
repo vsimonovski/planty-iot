@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
     fullname:String,
+    imgUrl:String,
     plants:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Plant'

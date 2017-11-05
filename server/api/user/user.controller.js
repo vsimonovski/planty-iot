@@ -1,8 +1,9 @@
 const User = require('./user.model');
 const Plant = require('../plant/plant.model');
 
-function show(){
-    console.log('test');
+async function show(){
+    let user = await User.findById(req.params.id);
+    res.json(user);
 }
 
 async function showPlants(req,res,next){

@@ -6,6 +6,11 @@ const statsSchema = mongoose.Schema({
     sun: Number
 });
 
+const locationSchema = mongoose.Schema({
+    long:Number,
+    lat:Number
+});
+
 const plantSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -13,7 +18,8 @@ const plantSchema = mongoose.Schema({
     },
     stats: statsSchema,
     name: String,
-    specy: String
+    specy: String,
+    loc: locationSchema
 });
 
 module.exports = mongoose.model('Plant', plantSchema);
