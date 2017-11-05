@@ -38,10 +38,7 @@ export class Plant extends Component {
                     <Ionicon
                         className="landing__plants__icon"
                         icon="ios-water-outline"
-                        beat={
-                            this.props.stats.moisture > 550 ||
-                            this.props.stats.moisture < 380
-                        }
+                        beat={this.props.stats.moisture > 380}
                     />
                 </span>
                 <span className="landing__plants__icon--light">
