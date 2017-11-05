@@ -1,8 +1,19 @@
-const five = require('johnny-five');
+const express = require('express');
+const app = express();
 
-const board = new five.Board();
+require('dotenv').config();
+const config = require('../config');
 
-board.on('ready', () => {
-    const led = new five.Led(13);
-    led.blink(100);
-});
+const mongoose = require('mongoose');
+mongoose.connect(
+    config.DBurl,
+    {
+        useMongoClient: true
+    },
+    () => {
+        console.log('connection with database established!');
+        require('./routes')(app);
+    }
+);
+
+app.listen(8080);
