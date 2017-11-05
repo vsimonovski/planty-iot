@@ -1,1 +1,31 @@
-$blue: red;
+@import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+@import url('https://fonts.googleapis.com/css?family=Didact+Gothic');
+@import url('https://fonts.googleapis.com/css?family=Baloo+Bhaijaan');
+
+@mixin font-baloo {
+    font-family: 'Baloo Bhaijaan', cursive;
+}
+
+@mixin font-shadows {
+    font-family: 'Shadows Into Light', cursive;
+}
+
+@mixin font-permanent {
+    font-family: 'Permanent Marker', cursive;
+}
+
+@mixin font-didact {
+    font-family: 'Didact Gothic', sans-serif;
+}
+
+// Color Pallete
+
+$river: #3498db;
+$sky: #7cdbd5;
+
+// fun
+$fresh: #4abdac;
+$vermillion: #fc4a1a;
+$sunshine: #f7b733;
+$clean: #dfdce3;
