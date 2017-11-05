@@ -2,11 +2,11 @@ const express = require('express');
 const app = express();
 
 require('dotenv').config();
-const config = require('../config');
-
+const config = require('./config');
 const mongoose = require('mongoose');
+
 mongoose.connect(
-    config.DBurl,
+    'mongodb://plantyuser:plantypass@ds145275.mlab.com:45275/plantydb',
     {
         useMongoClient: true
     },
@@ -17,4 +17,4 @@ mongoose.connect(
 );
 mongoose.Promise = global.Promise;
 
-app.listen(8080);
+app.listen(9090);

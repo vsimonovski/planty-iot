@@ -8,17 +8,15 @@
 }
 
 .landing {
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
-    background: linear-gradient(to right, #8e54e9, #4776e6);
-    padding-left: 1.6rem;
 
     &__title {
         @include font-baloo;
         color: #fff;
         font-size: 3rem;
-
         position: absolute;
         top: 1.6rem;
         left: 1.6rem;
@@ -43,15 +41,19 @@
     }
 
     &__stats {
-        width: 300px;
-        height: 50%;
+        width: 158px;
+        height: 100%;
         flex-shrink: 0;
+        background: #0049c5;
     }
 
     &__avatar {
-        width: 150px;
-        height: 150px;
+        width: 110px;
+        height: 110px;
+        display: block;
+        margin: 0 auto;
         border-radius: 50%;
+        margin-top: -255px;
     }
 
     &__name {
@@ -61,17 +63,16 @@
         text-align: center;
         display: block;
         padding-top: 0.8rem;
-        color: #111;
+        color: #fff;
+        letter-spacing: 1px;
     }
 
     &__plants {
-        width: 90%;
         flex-wrap: wrap;
         display: flex;
         justify-content: center;
         position: relative;
         overflow-y: scroll;
-        height: 50%;
 
         &__title {
             color: #fff;
@@ -88,7 +89,7 @@
                 margin-bottom: 0;
             }
 
-            border-bottom: 3px solid #2ecc71;
+            border-bottom: 3px solid #0049c5;
         }
 
         &__img {
@@ -140,4 +141,31 @@
 
 .temp-value {
     font-size: 12px;
+}
+
+.icon {
+    &__active {
+        fill: #fff;
+    }
+}
+
+.menu {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    &__active {
+        border-bottom: 1px solid #fff;
+    }
+}
+
+.main {
+    &__view {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
