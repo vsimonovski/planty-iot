@@ -88,79 +88,82 @@ module.exports = app => {
             board = new five.Board();
         }
         let sunData, temperatureData, moisureData;
+        let photoresistor, moisture, temperature;
         let obj = {};
         let i = 0;
         board.on('ready', () => {
             // Create a new `photoresistor` hardware instance.
-            photoresistor = new five.Sensor({
-                pin: 'A2',
-                freq: 250
-            });
+            if (!photoresistor) {
+                photoresistor = new five.Sensor({
+                    pin: 'A2',
+                    freq: 250
+                });
+            }
 
-            board.repl.inject({
-                pot: photoresistor
-            });
+            // board.repl.inject({
+            //     pot: photoresistor
+            // });
 
             // "data" get the current reading from the photoresistor
-            photoresistor.on('data', function() {
+            let f3 = function() {
                 console.log(this.value);
                 sunData = this.value;
                 i++;
-                if (i === 1) {
-                    let moisture = new five.Sensor({
+                // if (i === 1) {
+                if (!moisture) {
+                    moisture = new five.Sensor({
                         pin: 'A0'
                     });
-                    let j = 0;
-                    moisture.on('data', function(value) {
-                        let text = '';
-                        if (value > 600) {
-                            text = 'GURNI MEEE';
-                        } else if (value > 500) {
-                            text = 'NAPOJI ME :(';
-                        } else if (value > 400) {
-                            text = 'VLAZNA SAM ^_^';
-                        } else if (value > 300) {
-                            text = 'UHH, DOBRO JE!';
-                        }
-                        console.log('zemlja: ' + text + ' ' + value);
-                        moisureData = value;
-                        j++;
-                        if (j === 1) {
-                            const temperature = new five.Thermometer({
-                                controller: 'LM335',
-                                pin: 'A5'
-                            });
-                            let k = 0;
-                            temperature.on('change', function() {
-                                console.log(
-                                    this.celsius + '°C',
-                                    this.fahrenheit + '°F'
-                                );
-                                temperatureData = this.celsius;
-                                k++;
-                                if (k === 1) {
-                                    res.json({
-                                        sunData,
-                                        temperatureData,
-                                        moisureData
-                                    });
-                                }
-                            });
-                        }
-                    });
                 }
-            });
+                let j = 0;
+                let f2 = function(value) {
+                    let text = '';
+                    if (value > 600) {
+                        text = 'GURNI MEEE';
+                    } else if (value > 500) {
+                        text = 'NAPOJI ME :(';
+                    } else if (value > 400) {
+                        text = 'VLAZNA SAM ^_^';
+                    } else if (value > 300) {
+                        text = 'UHH, DOBRO JE!';
+                    }
+                    console.log('zemlja: ' + text + ' ' + value);
+                    moisureData = value;
+                    j++;
+                    // if (j === 1) {
+                    if (!temperature) {
+                        temperature = new five.Thermometer({
+                            controller: 'LM335',
+                            pin: 'A5'
+                        });
+                    }
+                    let k = 0;
+                    let f1 = function() {
+                        console.log(
+                            this.celsius + '°C',
+                            this.fahrenheit + '°F'
+                        );
+                        temperatureData = this.celsius;
+                        k++;
+                        // if (k === 1) {
+                        temperature.removeListener('data', f1);
+                        moisture.removeListener('data', f2);
+                        photoresistor.removeListener('data', f3);
+                        res.json({
+                            sunData,
+                            temperatureData,
+                            moisureData
+                        });
+                        // }
+                    };
+                    temperature.on('change', f1);
+                    // }
+                };
+                moisture.on('data', f2);
+                // }
+            };
+            photoresistor.on('data', f3);
         });
-
-        // var temperature = new five.Thermometer({
-        //     controller: 'LM335',
-        //     pin: 'A5'
-        // });
-
-        // temperature.on('data', function() {
-        //     console.log(this.celsius + '°C', this.fahrenheit + '°F');
-        //     temperatureData = this.celsius;
-        // });
     });
 };
 
