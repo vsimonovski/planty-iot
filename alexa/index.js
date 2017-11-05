@@ -263,6 +263,39 @@ function getJSON(callback, calling, intent) {
         test.then(function(res) {
             callback(res.temp);
         });
+    } else if (calling === 'whatToDo') {
+        var test = new Promise(function(resolve, reject) {
+            request(
+                {
+                    headers: {
+                        'User-Agent': 'MY IPHINE 7s'
+                    },
+                    url: 'https://674a789d.ngrok.io/temp',
+                    method: 'get'
+                },
+                function(err, res, body) {
+                    resolve(JSON.parse(body));
+                }
+            );
+        });
+        test.then(function(res) {
+            let moisture = res.moisture;
+            let temp = res.temp;
+            let sun = res.sun;
+            let output = 'Your plant is ';
+            if (moisure > 550) {
+                output += 'as dry as a bone. She needs a lot of water!';
+            } else if (moisure > 350) {
+                output += 'is thirsty. Please give her some water!';
+            } else if (moisure > 250) {
+                output += 'has enough water. Great job!';
+            } else {
+                output +=
+                    'saturated with water. If you continue, you can drown it!';
+            }
+            callback(output);
+        });
+    } else if (calling === 'plantImprove') {
     } else if (calling === 'productsIntent') {
         //var infoResponses = ["Do you need something more?", "Do you need anything else?", "Anything else?", "Can I help you with something else?", "Any other question?"]
         //var response = infoResponses[Math.floor(Math.random() * infoResponses.length)]
