@@ -4,6 +4,13 @@ let lastChecked;
 let temperature, moisture, photoresistor;
 
 module.exports = app => {
+
+    app.use('/api/users', require('./api/user'));
+
+    app.get('/appdirect', (req,res) => {
+        res.status(200).send(); 
+    });
+
     app.get('/start', (req, res) => {
         if (!led) {
             console.log('OVDE');

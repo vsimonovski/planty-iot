@@ -15,5 +15,6 @@ mongoose.connect(
         require('./routes')(app);
     }
 );
+mongoose.Promise = global.Promise;
 
 app.listen(8080);

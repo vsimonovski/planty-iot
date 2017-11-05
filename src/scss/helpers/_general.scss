@@ -1,4 +1,21 @@
 html,
 body {
     height: 100%;
+    display: flex;
+    font-size: 10px;
+    background: linear-gradient(to right, #8e54e9, #4776e6);
+}
+
+#app {
+    height: 100%;
+}
+
+.light__border {
+    display: block;
+    height: 1px;
+    border: 0;
+    // border-top: 1px solid linear-gradient(to right, #8e54e9, #4776e6);
+    width: 80%;
+    padding: 0;
+    margin: 8px auto;
 }

@@ -17,14 +17,14 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(paths.SRC, 'index.html'),
-            title: 'webpack starter'
+            title: 'planty'
         }),
         new ExtractTextPlugin('style.bundle.css')
     ],
     module: {
         rules: [
             {
-                test: /\.(js)$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: ['babel-loader']
             },
@@ -50,6 +50,6 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['.js']
+        extensions: ['.js', '.jsx']
     }
 };
