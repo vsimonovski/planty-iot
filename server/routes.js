@@ -5,7 +5,8 @@ let temperature, moisture, photoresistor;
 let Plant = require('./api/plant/plant.model');
 
 module.exports = app => {
-    //app.use('/api/users', require('./api/user'));
+    
+    app.use('/api/users', require('./api/user'));
 
     app.get('/appdirect', (req, res) => {
         res.status(200).send();
