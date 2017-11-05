@@ -53,7 +53,6 @@
         display: block;
         margin: 0 auto;
         border-radius: 50%;
-        margin-top: -255px;
     }
 
     &__name {
@@ -71,8 +70,10 @@
         flex-wrap: wrap;
         display: flex;
         justify-content: center;
+        align-items: center;
         position: relative;
         overflow-y: scroll;
+        height: 600px;
 
         &__title {
             color: #fff;
@@ -82,9 +83,11 @@
             height: 400px;
             width: 300px;
             margin-left: 150px;
-            margin-bottom: 100px;
             position: relative;
             font-family: Helvetica, sans-serif;
+            &:first-child {
+                margin-left: 0;
+            }
             &:last-child {
                 margin-bottom: 0;
             }
@@ -94,13 +97,15 @@
 
         &__img {
             width: 150px;
-            height: 191px;
+            height: 160px;
         }
 
         &__icon {
             font-size: 25px;
             &--temp {
                 position: absolute;
+                display: flex;
+                align-items: center;
                 svg {
                     fill: #e74c3c;
                 }
@@ -143,12 +148,6 @@
     font-size: 12px;
 }
 
-.icon {
-    &__active {
-        fill: #fff;
-    }
-}
-
 .menu {
     display: block;
     text-align: center;
@@ -157,6 +156,12 @@
     padding-bottom: 10px;
     &__active {
         border-bottom: 1px solid #fff;
+
+        .icon {
+            &__active {
+                fill: #fff;
+            }
+        }
     }
 }
 
@@ -168,4 +173,138 @@
         justify-content: center;
         align-items: center;
     }
+}
+
+.avatar-wrap {
+    position: absolute;
+    top: 75px;
+}
+
+.specy {
+    position: absolute;
+    top: 16px;
+    left: 15px;
+    font-size: 13px;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.age {
+    position: absolute;
+    bottom: 20px;
+    left: 16px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+
+    &_ico {
+        padding-right: 5px;
+    }
+}
+
+.health {
+    position: absolute;
+    bottom: 20px;
+    right: 32px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    &_ico {
+        padding-right: 5px;
+    }
+}
+
+.landing__achievment {
+    &__title {
+        font-size: 30px;
+        font-family: Helvetica, sans-serif;
+        position: absolute;
+        top: 50px;
+        left: 320px;
+        @include font-baloo;
+
+        &__2 {
+            top: 500px;
+            left: 320px;
+        }
+    }
+
+    .landing__card__1 {
+        flex-direction: row;
+        padding: 50px;
+        position: absolute;
+        top: 150px;
+        left: 320px;
+        border-top: 3px solid $vermillion;
+    }
+}
+
+.badge_1,
+.badge_2,
+.badge_3,
+.badge_4 {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    div {
+        padding-top: 10px;
+    }
+}
+
+.badge_1 {
+    padding-right: 100px;
+    img {
+        width: 150px;
+    }
+}
+
+.badge_2 {
+    img {
+        width: 150px;
+    }
+}
+
+.badge_3 {
+    padding-left: 100px;
+    img {
+        width: 150px;
+    }
+}
+
+.badge_4 {
+    padding-left: 100px;
+    img {
+        width: 150px;
+    }
+}
+
+.landing__card__2 {
+}
+
+.tabela {
+    top: 600px;
+    position: absolute;
+    width: 500px;
+    left: 320px;
+    font-size: 20px;
+    font-family: Helvetica, sans-serif;
+    justify-content: flex-start;
+    padding: 15px;
+    td {
+        padding: 20px;
+    }
+
+    tr {
+        width: 400px;
+    }
+
+    th {
+        padding-right: 40px;
+    }
+
+    border-top: 3px solid $vermillion;
 }
