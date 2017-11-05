@@ -12,23 +12,33 @@ export class Plants extends Component {
     }
 
     componentWillMount() {
-        axios
-            .get(
-                'http://localhost:9090/api/users/59fe70c3f36d2831457fb42b/plants'
-            )
-            .then(res => {
-                console.log(res.data);
+        const ngrokUpdateUrl =
+            'https://674a789d.ngrok.io/temp/59fe70c3f36d2831457fb42b';
+        const ngrokAllUrl =
+            'https://674a789d.ngrok.io/api/users/59fe70c3f36d2831457fb42b/plants';
 
-                this.setState({
-                    plants: res.data
-                });
+        axios.get(ngrokAllUrl).then(res => {
+            console.log(res.data);
+
+            this.setState({
+                plants: res.data
             });
+        });
     }
     render() {
         return (
             <div className="landing__plants">
                 {this.state.plants.map((plant, index) => {
-                    return <Plant key={index} />;
+                    return (
+                        <Plant
+                            key={index}
+                            name={plant.name}
+                            specy={plant.specy}
+                            stats={plant.stats}
+                            pic={index === 0 ? 'birch' : 'cactus'}
+                            age={plant.age}
+                        />
+                    );
                 })}
             </div>
         );
