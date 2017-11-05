@@ -1,4 +1,5 @@
 const five = require('johnny-five');
+const cors = require('cors');
 let board, led;
 let lastChecked;
 let temperature, moisture, photoresistor;
@@ -77,7 +78,7 @@ module.exports = app => {
         });
     });
 
-    app.get('/temp/:id', (req, res) => {
+    app.get('/temp/:id', cors(), (req, res) => {
         let t, m, s;
         if (!board) {
             board = new five.Board();
