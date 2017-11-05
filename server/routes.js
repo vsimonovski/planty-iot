@@ -1,5 +1,4 @@
 const five = require('johnny-five');
-const cors = require('cors');
 let board, led;
 let lastChecked;
 let temperature, moisture, photoresistor;
