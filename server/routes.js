@@ -4,9 +4,11 @@ let board, led;
 let lastChecked;
 let temperature, moisture, photoresistor;
 let Plant = require('./api/plant/plant.model');
+let cors = require('cors');
 
 module.exports = app => {
-    //app.use('/api/users', require('./api/user'));
+    app.use('/api/users', require('./api/user'));
+    app.use('/api/plants', require('./api/plant'));
 
     app.get('/appdirect', (req, res) => {
         res.status(200).send();
@@ -128,24 +130,21 @@ module.exports = app => {
                         m = value;
                         this.disable();
 
-                        let plants = await Plant.find({ user: req.params.id });
-                        console.log(plants);
+                        let plant = await Plant.findOne({
+                            user: req.params.id
+                        });
+                        console.log(plant);
 
-                        for (i = 0; i < plants.length; i++) {
-                            if (
-                                !plants[i].stats.moisture &&
-                                !plants[i].stats.sun &&
-                                !plants[i].stats.temperature
-                            ) {
-                                plants[i].stats.moisture = m;
-                                plants[i].stats.sun = s;
-                                plants[i].stats.temperature = t;
-                                break;
-                            }
-                        }
+                        plant.stats.moisture = m;
+                        plant.stats.sun = s;
+                        plant.stats.temperature = t;
 
-                        res.json(plants, 200);
+                        await plant.save();
+
+                        res.json(plant, 200);
+
                         board.io.reset();
+                        // res.status(200).send('OK!');
                     });
                     this.disable();
                 });
@@ -188,24 +187,19 @@ module.exports = app => {
                         m = value;
                         this.disable();
 
-                        let plants = await Plant.find({ user: req.params.id });
-                        console.log(plants);
+                        let plant = await Plant.findOne({
+                            user: req.params.id
+                        });
+                        console.log(plant);
 
-                        for (i = 0; i < plants.length; i++) {
-                            if (
-                                !plants[i].stats.moisture &&
-                                !plants[i].stats.sun &&
-                                !plants[i].stats.temperature
-                            ) {
-                                plants[i].stats.moisture = m;
-                                plants[i].stats.sun = s;
-                                plants[i].stats.temperature = t;
-                                break;
-                            }
-                        }
-
-                        res.json(plants, 200);
+                        plant.stats.moisture = m;
+                        plant.stats.sun = s;
+                        plant.stats.temperature = t;
+                        await plant.save();
+                        res.json(plant, 200);
                         board.io.reset();
+
+                        // res.status(200).send('OK!');
                     });
                     this.disable();
                 });
