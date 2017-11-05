@@ -78,7 +78,9 @@ function onIntent(intentRequest, session, callback) {
         intentName == 'plantyIntentStart' ||
         intentName == 'plantyIntentStop' ||
         intentName == 'apiCall' ||
-        intentName == 'whatToDo'
+        intentName == 'whatToDo' ||
+        intentName == 'plantImprove' ||
+        intentName == 'plantFeels'
     ) {
         handleBankIntent(intent, session, callback, intentName);
     } else if (intentName == 'AMAZON.CancelIntent') {
@@ -282,6 +284,15 @@ function getJSON(callback, calling, intent) {
             );
         });
         test.then(function(res) {
+            var infoResponses = [
+                'Do you need something more?',
+                'Do you need anything else?',
+                'Anything else?',
+                'Can I help you with something else?',
+                'Any other question?'
+            ];
+            var response =
+                infoResponses[Math.floor(Math.random() * infoResponses.length)];
             var moisture = res.stats.moisture;
             var temp = res.stats.temperature;
             var sun = res.stats.sun;
@@ -298,10 +309,98 @@ function getJSON(callback, calling, intent) {
                 output +=
                     'is saturated with water. If you continue, you can drown it!';
             }
+            output += ' ' + response;
             callback(output);
         });
     } else if (calling === 'plantImprove') {
         console.log('eee');
+        var test = new Promise(function(resolve, reject) {
+            request(
+                {
+                    headers: {
+                        'User-Agent': 'MY IPHINE 7s'
+                    },
+                    url:
+                        'https://674a789d.ngrok.io/temp/59fe70c3f36d2831457fb42b',
+                    method: 'get'
+                },
+                function(err, res, body) {
+                    resolve(JSON.parse(body));
+                }
+            );
+        });
+        test.then(function(res) {
+            var infoResponses = [
+                'Do you need something more?',
+                'Do you need anything else?',
+                'Anything else?',
+                'Can I help you with something else?',
+                'Any other question?'
+            ];
+            var response =
+                infoResponses[Math.floor(Math.random() * infoResponses.length)];
+            var moisture = res.stats.moisture;
+            var temp = res.stats.temperature;
+            var sun = res.stats.sun;
+            var name = res.name;
+            var specy = res.specy;
+            var output = 'Current temperature is good for ' + name;
+            if (sun > 950) {
+                output +=
+                    " but it's not very well lit up. Move her to a place with a better light! ";
+            } else {
+                output += ' and this place has great light. Great job!';
+            }
+            output += ' ' + response;
+            callback(output);
+        });
+    } else if (calling === 'plantFeels') {
+        console.log('eee');
+        var test = new Promise(function(resolve, reject) {
+            request(
+                {
+                    headers: {
+                        'User-Agent': 'MY IPHINE 7s'
+                    },
+                    url:
+                        'https://674a789d.ngrok.io/temp/59fe70c3f36d2831457fb42b',
+                    method: 'get'
+                },
+                function(err, res, body) {
+                    resolve(JSON.parse(body));
+                }
+            );
+        });
+        test.then(function(res) {
+            var infoResponses = [
+                'Do you need something more?',
+                'Do you need anything else?',
+                'Anything else?',
+                'Can I help you with something else?',
+                'Any other question?'
+            ];
+            var response =
+                infoResponses[Math.floor(Math.random() * infoResponses.length)];
+            var moisture = res.stats.moisture;
+            var temp = res.stats.temperature;
+            var sun = res.stats.sun;
+            var name = res.name;
+            var specy = res.specy;
+            var output = '';
+            if (sun > 950) {
+                output =
+                    'Your plant, ' +
+                    name +
+                    ' does not feel very well, ask me for more info to help her to feel better!';
+            } else {
+                output =
+                    ' Now ' +
+                    name +
+                    ', feels much better. She is very grateful for taking care of her. Congrats!';
+            }
+            output += ' ' + response;
+            callback(output);
+        });
     } else if (calling === 'productsIntent') {
         //var infoResponses = ["Do you need something more?", "Do you need anything else?", "Anything else?", "Can I help you with something else?", "Any other question?"]
         //var response = infoResponses[Math.floor(Math.random() * infoResponses.length)]

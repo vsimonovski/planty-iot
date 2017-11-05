@@ -3,9 +3,9 @@ let board, led;
 let lastChecked;
 let temperature, moisture, photoresistor;
 let Plant = require('./api/plant/plant.model');
+let cors = require('cors');
 
 module.exports = app => {
-    
     app.use('/api/users', require('./api/user'));
 
     app.get('/appdirect', (req, res) => {
@@ -78,7 +78,7 @@ module.exports = app => {
         });
     });
 
-    app.get('/temp/:id', (req, res) => {
+    app.get('/temp/:id', cors(), (req, res) => {
         let t, m, s;
         if (!board) {
             board = new five.Board();
