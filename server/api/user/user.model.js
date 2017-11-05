@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-const Plant = require('./plant');
 
 archievementsSchema = mongoose.Schema({
-    archs:[String]
+    achs:[String]
 });
 
 const userSchema = mongoose.Schema({
@@ -11,7 +10,7 @@ const userSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Plant'
     }],
-    archievements:archievementsSchema
+    achievements:archievementsSchema
 });
 
 module.exports = mongoose.model('User', userSchema);

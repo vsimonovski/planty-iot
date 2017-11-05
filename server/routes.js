@@ -3,8 +3,10 @@ let board, led;
 
 module.exports = app => {
 
+app.use('/api/users', require('./api/user'));
+
 app.get('/appdirect', (req,res) => {
-    res.status(200).end(); 
+    res.status(200).send(); 
 });
 
 app.get('/start', (req, res) => {
