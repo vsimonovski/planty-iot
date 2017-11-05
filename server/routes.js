@@ -7,6 +7,7 @@ let cors = require('cors');
 
 module.exports = app => {
     app.use('/api/users', require('./api/user'));
+    app.use('/api/plants', require('./api/plant'));
 
     app.get('/appdirect', (req, res) => {
         res.status(200).send();
