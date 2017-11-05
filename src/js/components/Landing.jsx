@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 const axios = require('axios');
+import Ionicon from 'react-ionicons';
 
-import Plant from './Plant';
+import Plants from './Plants';
+import GMap from './GMap';
 
 export default class Landing extends Component {
     constructor(props) {
@@ -10,7 +13,7 @@ export default class Landing extends Component {
 
         this.state = {
             user: {},
-            plants: [{ name: 'a' }, { name: 'a' }, { name: 'a' }, { name: 'a' }]
+            plants: []
         };
     }
 
@@ -30,8 +33,6 @@ export default class Landing extends Component {
             });
     }
 
-    getAvatar(data) {}
-
     render() {
         return (
             <div className="landing">
@@ -46,17 +47,31 @@ export default class Landing extends Component {
                             />
                             <div>
                                 <span className="landing__name">{`${this.state
-                                    .user.name.first} ${this.state.user.name
-                                    .last}`}</span>
-                                <hr className="light__border" />
+                                    .user.name.first}`}</span>
                             </div>
                         </div>
                     )}
+                    <div className="menu menu__active">
+                        <Ionicon
+                            icon="ios-pulse-outline"
+                            fontSize="35px"
+                            className="icon__active"
+                        />
+                    </div>
+                    <div className="menu">
+                        <Link to="/map">
+                            <Ionicon icon="ios-pin-outline" fontSize="35px" />
+                        </Link>
+                    </div>
+                    <div className="menu">
+                        <Ionicon icon="ios-trophy-outline" fontSize="35px" />
+                    </div>
                 </div>
-                <div className="landing__plants">
-                    {this.state.plants.map((plant, index) => {
-                        return <Plant key={index} />;
-                    })}
+                <div className="main__view">
+                    <Switch>
+                        <Route exact path="/" component={Plants} />
+                        <Route path="/map" component={GMap} />
+                    </Switch>
                 </div>
             </div>
         );

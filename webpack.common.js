@@ -21,6 +21,9 @@ module.exports = {
         }),
         new ExtractTextPlugin('style.bundle.css')
     ],
+    devServer: {
+        historyApiFallback: true
+    },
     module: {
         rules: [
             {

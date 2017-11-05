@@ -127,24 +127,17 @@ module.exports = app => {
                         m = value;
                         this.disable();
 
-                        let plants = await Plant.find({ user: req.params.id });
+                        let plants = await Plant.findOne({ user: req.params.id });
                         console.log(plants);
 
-                        for (i = 0; i < plants.length; i++) {
-                            if (
-                                !plants[i].stats.moisture &&
-                                !plants[i].stats.sun &&
-                                !plants[i].stats.temperature
-                            ) {
-                                plants[i].stats.moisture = m;
-                                plants[i].stats.sun = s;
-                                plants[i].stats.temperature = t;
-                                break;
-                            }
-                        }
+                        plants[0].stats.moisture = m;
+                        plants[0].stats.sun = s;
+                        plants[0].stats.temperature = t;
 
-                        res.json(plants, 200);
+                        await plants.save();
+
                         board.io.reset();
+                        res.status(200).send('OK!');
                     });
                     this.disable();
                 });
@@ -190,21 +183,14 @@ module.exports = app => {
                         let plants = await Plant.find({ user: req.params.id });
                         console.log(plants);
 
-                        for (i = 0; i < plants.length; i++) {
-                            if (
-                                !plants[i].stats.moisture &&
-                                !plants[i].stats.sun &&
-                                !plants[i].stats.temperature
-                            ) {
-                                plants[i].stats.moisture = m;
-                                plants[i].stats.sun = s;
-                                plants[i].stats.temperature = t;
-                                break;
-                            }
-                        }
+                        plants[0].stats.moisture = m;
+                        plants[0].stats.sun = s;
+                        plants[0].stats.temperature = t;
+                        await plants.save();
 
-                        res.json(plants, 200);
                         board.io.reset();
+
+                        res.status(200).send('OK!');
                     });
                     this.disable();
                 });
