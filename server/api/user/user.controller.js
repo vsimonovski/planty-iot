@@ -1,5 +1,5 @@
 const User = require('./user.model');
-const Plant = require('./plant.model');
+const Plant = require('../plant/plant.model');
 
 function show(){
     console.log('test');

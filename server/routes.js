@@ -2,10 +2,11 @@ const five = require('johnny-five');
 let board, led;
 let lastChecked;
 let temperature, moisture, photoresistor;
+let Plant = require('./api/plant/plant.model');
 
 module.exports = app => {
 
-    app.use('/api/users', require('./api/user'));
+    //app.use('/api/users', require('./api/user'));
 
     app.get('/appdirect', (req,res) => {
         res.status(200).send(); 
@@ -79,7 +80,7 @@ module.exports = app => {
 
     app.get('/temp', (req, res) => {
         let t, m, s;
-        if (board === undefined) {
+        if (!board) {
             board = new five.Board();
             board.debug = false;
             board.repl = false;
@@ -112,7 +113,7 @@ module.exports = app => {
                 photoresistor.on('data', function() {
                     console.log(this.value);
                     s = this.value;
-                    moisture.on('data', function(value) {
+                    moisture.on('data', async function(value) {
                         let text = '';
                         if (value > 600) {
                             text = 'GURNI MEEE';
@@ -126,7 +127,21 @@ module.exports = app => {
                         console.log('zemlja: ' + text + ' ' + value);
                         m = value;
                         this.disable();
-                        res.json({ sun: s, temp: t, moisture: m }, 200);
+
+                        let plants = await Plant.find({'user':req.params.id});
+                        console.log(plants);
+
+                        for(i=0;i<plants.length;i++){
+                            if(!plants[i].stats.humidity && !plants[i].stats.sun
+                                && !plants[i].stats.temperature){
+                                    plants[i].stats.humidity = m;
+                                    plants[i].stats.sun = s;
+                                    plants[i].stats.temperature = t;
+                                    break;
+                                }
+                        }
+
+                        res.json(plants, 200);
                         board.io.reset();
                     });
                     this.disable();
