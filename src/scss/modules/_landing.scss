@@ -11,7 +11,6 @@
     height: 100%;
     display: flex;
     align-items: center;
-    position: relative;
     background: linear-gradient(to right, #8e54e9, #4776e6);
     padding-left: 1.6rem;
 
@@ -70,7 +69,7 @@
         flex-wrap: wrap;
         display: flex;
         justify-content: center;
-        // padding-top: 10%;
+        position: relative;
         overflow-y: scroll;
         height: 50%;
 
@@ -83,8 +82,49 @@
             width: 300px;
             margin-left: 150px;
             margin-bottom: 100px;
+            position: relative;
+            font-family: Helvetica, sans-serif;
             &:last-child {
                 margin-bottom: 0;
+            }
+
+            border-bottom: 3px solid #2ecc71;
+        }
+
+        &__img {
+            width: 150px;
+            height: 191px;
+        }
+
+        &__icon {
+            font-size: 25px;
+            &--temp {
+                position: absolute;
+                svg {
+                    fill: #e74c3c;
+                }
+                top: 10px;
+                right: 10px;
+            }
+
+            &--humid {
+                position: absolute;
+                top: 45px;
+                svg {
+                    fill: #3498db;
+                }
+                right: 10px;
+            }
+
+            &--light {
+                position: absolute;
+                top: 75px;
+                svg {
+                    width: 35px;
+                    height: 30px;
+                    fill: #e67e22;
+                }
+                right: 4px;
             }
         }
     }
@@ -96,4 +136,8 @@
 ::-webkit-scrollbar-track-piece {
     background-color: transparent;
     -webkit-border-radius: 6px;
+}
+
+.temp-value {
+    font-size: 12px;
 }
