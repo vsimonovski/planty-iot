@@ -77,7 +77,8 @@ function onIntent(intentRequest, session, callback) {
         intentName == 'productsIntent' ||
         intentName == 'plantyIntentStart' ||
         intentName == 'plantyIntentStop' ||
-        intentName == 'apiCall'
+        intentName == 'apiCall' ||
+        intentName == 'whatToDo'
     ) {
         handleBankIntent(intent, session, callback, intentName);
     } else if (intentName == 'AMAZON.CancelIntent') {
@@ -250,7 +251,8 @@ function getJSON(callback, calling, intent) {
                     headers: {
                         'User-Agent': 'MY IPHINE 7s'
                     },
-                    url: 'https://674a789d.ngrok.io/temp',
+                    url:
+                        'https://674a789d.ngrok.io/temp/59fe70c3f36d2831457fb42b',
                     method: 'get'
                 },
                 function(err, res, body) {
@@ -270,7 +272,8 @@ function getJSON(callback, calling, intent) {
                     headers: {
                         'User-Agent': 'MY IPHINE 7s'
                     },
-                    url: 'https://674a789d.ngrok.io/temp',
+                    url:
+                        'https://674a789d.ngrok.io/temp/59fe70c3f36d2831457fb42b',
                     method: 'get'
                 },
                 function(err, res, body) {
@@ -279,23 +282,26 @@ function getJSON(callback, calling, intent) {
             );
         });
         test.then(function(res) {
-            let moisture = res.moisture;
-            let temp = res.temp;
-            let sun = res.sun;
-            let output = 'Your plant is ';
+            let moisture = res[0].stats.moisture;
+            let temp = res[0].stats.temperature;
+            let sun = res[0].stats.sun;
+            let name = res[0].name;
+            let specy = res[0].specy;
+            let output = 'Your ' + specy + ' plant, ' + name + ' ';
             if (moisure > 550) {
-                output += 'as dry as a bone. She needs a lot of water!';
+                output += 'is as dry as a bone. She needs a lot of water!';
             } else if (moisure > 350) {
                 output += 'is thirsty. Please give her some water!';
             } else if (moisure > 250) {
                 output += 'has enough water. Great job!';
             } else {
                 output +=
-                    'saturated with water. If you continue, you can drown it!';
+                    'is saturated with water. If you continue, you can drown it!';
             }
             callback(output);
         });
     } else if (calling === 'plantImprove') {
+        console.log('eee');
     } else if (calling === 'productsIntent') {
         //var infoResponses = ["Do you need something more?", "Do you need anything else?", "Anything else?", "Can I help you with something else?", "Any other question?"]
         //var response = infoResponses[Math.floor(Math.random() * infoResponses.length)]
