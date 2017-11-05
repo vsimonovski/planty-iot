@@ -100,7 +100,8 @@ function getWelcomeResponse(callback) {
     logged = true;
     wasLogged = false;
 
-    var speechOutput = 'Hi there I am Planty!';
+    var speechOutput =
+        'Hi there I am Planty. I am here to make ecology more exciting! How can I help you?';
 
     var reprompt = 'Please tell me how can I help you?';
 
@@ -180,7 +181,7 @@ function handleEmailIntent(intent, session, callback, call) {
 }
 
 function handleCancelIntent(intent, session, callback) {
-    var speechOutput = 'Thanks for using Find it assistant, goodbye!';
+    var speechOutput = 'Thanks for using Planty, goodbye!';
     callback(
         session.attributes,
         buildSpeechletResponseWithoutCard(speechOutput, '', true)
@@ -345,7 +346,7 @@ function getJSON(callback, calling, intent) {
             var name = res.name;
             var specy = res.specy;
             var output = 'Current temperature is good for ' + name;
-            if (sun > 950) {
+            if (sun > 900) {
                 output +=
                     " but it's not very well lit up. Move her to a place with a better light! ";
             } else {
